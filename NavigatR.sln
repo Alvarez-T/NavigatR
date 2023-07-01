@@ -5,6 +5,10 @@ VisualStudioVersion = 17.5.33627.172
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NavigatR", "NavigatR\NavigatR.csproj", "{08861CBA-3C95-48B3-942A-1753D219BC3D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NavigatR.Tests", "NavigatR.Tests\NavigatR.Tests.csproj", "{3179F781-BEF0-4EEF-845C-ED7BE3BEA172}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NavigatR.WPF", "NavigatR.WPF\NavigatR.WPF.csproj", "{56F669BA-05F3-4B74-A618-76CD7DC638FE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{08861CBA-3C95-48B3-942A-1753D219BC3D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{08861CBA-3C95-48B3-942A-1753D219BC3D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{08861CBA-3C95-48B3-942A-1753D219BC3D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3179F781-BEF0-4EEF-845C-ED7BE3BEA172}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3179F781-BEF0-4EEF-845C-ED7BE3BEA172}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3179F781-BEF0-4EEF-845C-ED7BE3BEA172}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3179F781-BEF0-4EEF-845C-ED7BE3BEA172}.Release|Any CPU.Build.0 = Release|Any CPU
+		{56F669BA-05F3-4B74-A618-76CD7DC638FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{56F669BA-05F3-4B74-A618-76CD7DC638FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{56F669BA-05F3-4B74-A618-76CD7DC638FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{56F669BA-05F3-4B74-A618-76CD7DC638FE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
