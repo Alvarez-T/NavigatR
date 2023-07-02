@@ -1,8 +1,9 @@
-﻿using System.Drawing;
+﻿using Microsoft.Extensions.DependencyInjection;
+using System.Drawing;
 
 namespace NavigatR;
 
-internal sealed class Navigator : INavigator
+public sealed class Navigator : INavigator
 {
     private readonly IServiceProvider _serviceProvider;
 
@@ -33,7 +34,10 @@ internal sealed class Navigator : INavigator
 
     public Task NavigateTo<T>(object? parameter = null) where T : INavigable
     {
-        throw new NotImplementedException();
+        var wrapper = _serviceProvider.GetRequiredService<INavigationWrapper<T>>();
+        var navigable = (INavigable)Activator.CreateInstance(typeof(T))!;
+        wrapper.ExecuteNavigation(navigable);
+        return Task.CompletedTask;
     }
 
     public Task NavigateTo<T, TParam>(TParam parameter) where T : INavigable<TParam>

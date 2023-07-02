@@ -4,7 +4,7 @@ public interface INavigable
 {
     public Task Navigate()
     {
-        throw new NotImplementedException("If you aren't using any wrapper, consider to implement the Navigate method");
+        throw new NotImplementedException("If you aren't using any navigation wrapper in your application configuration, you must declare the Navigate method in your implementation class");
     }
 }
 
