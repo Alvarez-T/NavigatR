@@ -14,22 +14,22 @@ public sealed class Navigator : INavigator
 
     public void NavigateFoward(int? index = null)
     {
-
+        throw new NotImplementedException();
     }
 
     public void NavigateFowardTo<T>() where T : INavigable
     {
-
+        throw new NotImplementedException();
     }
 
     public void NavigateBackward(int? index = null)
     {
-
+        throw new NotImplementedException();
     }
 
     public void NavigateBackwardTo<T>() where T: INavigable
     {
-
+        throw new NotImplementedException();
     }
 
     public Task NavigateTo<T>(object? parameter = null) where T : INavigable
