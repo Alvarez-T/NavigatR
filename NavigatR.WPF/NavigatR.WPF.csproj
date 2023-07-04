@@ -8,7 +8,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\NavigatR.MVVM\NavigatR.MVVM.csproj" />
     <ProjectReference Include="..\NavigatR\NavigatR.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Services\" />
   </ItemGroup>
 
 </Project>

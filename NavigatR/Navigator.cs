@@ -34,6 +34,7 @@ public sealed class Navigator : INavigator
 
     public Task NavigateTo<T>(object? parameter = null) where T : INavigable
     {
+        _serviceProvider.GetRequiredService()
         var wrapper = _serviceProvider.GetRequiredService<INavigationWrapper<T>>();
         var navigable = (INavigable)Activator.CreateInstance(typeof(T))!;
         wrapper.ExecuteNavigation(navigable);

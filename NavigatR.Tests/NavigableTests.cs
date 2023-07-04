@@ -1,8 +1,9 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using NavigatR.MVVM;
 
 namespace NavigatR.Tests;
 
-public class FakeViewModel : INavigable
+public class FakeViewModel : INavigableViewModel
 {
 
 }

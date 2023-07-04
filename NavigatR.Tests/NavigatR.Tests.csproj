@@ -18,6 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\NavigatR.MVVM\NavigatR.MVVM.csproj" />
     <ProjectReference Include="..\NavigatR.WPF\NavigatR.WPF.csproj" />
     <ProjectReference Include="..\NavigatR\NavigatR.csproj" />
   </ItemGroup>
