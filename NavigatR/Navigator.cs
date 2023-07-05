@@ -32,16 +32,14 @@ public sealed class Navigator : INavigator
         throw new NotImplementedException();
     }
 
-    public Task NavigateTo<T>(object? parameter = null) where T : INavigable
+    public void NavigateTo<T>(object? parameter = null) where T : INavigable
     {
-        _serviceProvider.GetRequiredService()
         var wrapper = _serviceProvider.GetRequiredService<INavigationWrapper<T>>();
         var navigable = (INavigable)Activator.CreateInstance(typeof(T))!;
         wrapper.ExecuteNavigation(navigable);
-        return Task.CompletedTask;
     }
 
-    public Task NavigateTo<T, TParam>(TParam parameter) where T : INavigable<TParam>
+    public void NavigateTo<T, TParam>(TParam parameter) where T : INavigable<TParam>
     {
         throw new NotImplementedException();
     }

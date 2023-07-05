@@ -6,6 +6,6 @@ public interface INavigator
     void NavigateBackwardTo<T>() where T : INavigable;
     void NavigateFoward(int? index = null);
     void NavigateFowardTo<T>() where T : INavigable;
-    Task NavigateTo<T>(object? parameter = null) where T : INavigable;
-    Task NavigateTo<T, TParam>(TParam parameter) where T : INavigable<TParam>;
+    void NavigateTo<T>(object? parameter = null) where T : INavigable;
+    void NavigateTo<T, TParam>(TParam parameter) where T : INavigable<TParam>;
 }

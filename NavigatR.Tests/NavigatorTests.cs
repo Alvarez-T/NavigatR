@@ -1,8 +1,18 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using NavigatR.WPF;
+using System.Windows;
 
 namespace NavigatR.Tests;
 
+public class FakeViewModel : INavigableViewModel
+{
+
+}
+
+public class Test : FrameworkElement
+{
+
+}
 
 internal class NavigatorTests
 {
@@ -16,8 +26,11 @@ internal class NavigatorTests
     public void TestNavigation()
     {
         var t = new ServiceCollection();
-        t.AddTransient<INavigationWrapper<FakeViewModel>, WpfNavigationWrapper<FakeViewModel>>();
-        t.UseNavigatR(null);
+        t.UseNavigatR(configuration =>
+        {
+            configuration.UseWpfNavigationWrapper()
+            .ConfigureViewToViewModel<Test, FakeViewModel>();
+        });
         var provider = t.BuildServiceProvider();
         var navigator = new Navigator(provider);
         navigator.NavigateTo<FakeViewModel>();

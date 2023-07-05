@@ -3,10 +3,7 @@ using NavigatR.MVVM;
 
 namespace NavigatR.Tests;
 
-public class FakeViewModel : INavigableViewModel
-{
 
-}
 public class NavigableTests
 {
     [SetUp]

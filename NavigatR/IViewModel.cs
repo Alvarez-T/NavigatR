@@ -1,11 +1,11 @@
-﻿namespace NavigatR.MVVM;
+﻿namespace NavigatR;
 
 public interface IViewModel
 {
 
 }
 
-public interface IViewModelTile
+public interface IViewModelTile : IViewModel
 {
 
 }
