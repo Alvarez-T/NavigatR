@@ -18,10 +18,13 @@ public class NavigatRConfiguration
             services.AddTransient(viewModelDescriptor.ImplementationType!);
         }
 
-        services
-            .AddTransient<INavigator, Navigator>()
-            .AddTransient(typeof(INavigationWrapper<>), typeof(NavigationWrapper<>))
-            .AddSingleton(new ViewProvider(_viewModelDescriptors, new ViewFactory(services.BuildServiceProvider())));
+        var navigatrServiceProvider = services.BuildServiceProvider();
+
+        services.AddSingleton(new ViewProvider(_viewModelDescriptors, new ViewFactory(navigatrServiceProvider)));
+
+        ViewModelLocator.CreateViewModelLocator(navigatrServiceProvider);
+
+        services.AddTransient<INavigator, Navigator>();
 
         _ = _navigationWrapperTypeToRegister is null
             ? services.AddTransient(typeof(INavigationWrapper<>), typeof(NavigationWrapper<>))
@@ -50,8 +53,4 @@ public class NavigatRConfiguration
         _viewModelDescriptors.Add(ServiceDescriptor.Describe(typeof(TView), typeof(TViewModel), lifetime));
         return this;
     }
-
-
-
-
 }
