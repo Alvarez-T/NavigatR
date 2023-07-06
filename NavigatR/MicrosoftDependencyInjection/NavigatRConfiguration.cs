@@ -6,32 +6,26 @@ namespace Microsoft.Extensions.DependencyInjection;
 
 public class NavigatRConfiguration
 {
-    public Type? NavigationWrapperTypeToRegister { get; private set; }
+    private Type? _navigationWrapperTypeToRegister;
 
-    private ViewProvider _viewProvider;
-    private readonly IServiceCollection _services;
+    private List<ServiceDescriptor> _viewModelDescriptors = new List<ServiceDescriptor>();
 
-    public NavigatRConfiguration(IServiceCollection services)
+    internal NavigatRConfiguration ConfigureNavigatRLibrary(IServiceCollection services)
     {
-        _services = services;
-    }
+        foreach (var viewModelDescriptor in _viewModelDescriptors)
+        {
+            services.AddTransient(viewModelDescriptor.ServiceType);
+            services.AddTransient(viewModelDescriptor.ImplementationType!);
+        }
 
-    internal NavigatRConfiguration ConfigureViewProvider()
-    {
-        _services.AddSingleton<ViewProvider>((serviceProvider) => _viewProvider = new ViewProvider(new ViewFactory(serviceProvider)));
-        return this;
-    }
-
-    internal NavigatRConfiguration ConfigureNavigatRLibrary()
-    {
-        _services
+        services
             .AddTransient<INavigator, Navigator>()
             .AddTransient(typeof(INavigationWrapper<>), typeof(NavigationWrapper<>))
-            .AddTransient<IViewFactory, ViewFactory>();
+            .AddSingleton(new ViewProvider(_viewModelDescriptors, new ViewFactory(services.BuildServiceProvider())));
 
-        _ = NavigationWrapperTypeToRegister is null
-            ? _services.AddTransient(typeof(INavigationWrapper<>), typeof(NavigationWrapper<>))
-            : _services.AddTransient(typeof(INavigationWrapper<>), NavigationWrapperTypeToRegister);
+        _ = _navigationWrapperTypeToRegister is null
+            ? services.AddTransient(typeof(INavigationWrapper<>), typeof(NavigationWrapper<>))
+            : services.AddTransient(typeof(INavigationWrapper<>), _navigationWrapperTypeToRegister);
 
         return this;
     }
@@ -44,20 +38,19 @@ public class NavigatRConfiguration
         if (!navigationWrapperType.IsGenericType)
             throw new ArgumentException("The navigation wrapper type must be generic");
 
-        NavigationWrapperTypeToRegister = navigationWrapperType;
+        _navigationWrapperTypeToRegister = navigationWrapperType;
 
         return this;
     }
 
-    public NavigatRConfiguration ConfigureViewToViewModel<TView, TViewModel>() 
+    public NavigatRConfiguration ConfigureViewToViewModel<TView, TViewModel>(ServiceLifetime lifetime = ServiceLifetime.Transient) 
         where TView : class
         where TViewModel : class, IViewModel
     {
-        _services.AddTransient<TView>();
-        _services.AddTransient<TViewModel>();
-        _viewProvider.AddViewAndViewModelAssociation(typeof(TView), typeof(TViewModel));
+        _viewModelDescriptors.Add(ServiceDescriptor.Describe(typeof(TView), typeof(TViewModel), lifetime));
         return this;
     }
+
 
 
 

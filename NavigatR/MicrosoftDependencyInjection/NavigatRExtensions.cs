@@ -7,12 +7,11 @@ public static class NavigatRExtensions
 {
     public static IServiceCollection UseNavigatR(this IServiceCollection services, Action<NavigatRConfiguration> navigatrConfiguration)
     {
-        var configuration = new NavigatRConfiguration(services);
-        configuration.ConfigureViewProvider();
+        var configuration = new NavigatRConfiguration();
 
         navigatrConfiguration(configuration);
 
-        configuration.ConfigureNavigatRLibrary();
+        configuration.ConfigureNavigatRLibrary(services);
         return services;
     }
 }

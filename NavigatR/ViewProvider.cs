@@ -1,4 +1,6 @@
-﻿namespace NavigatR.MVVM.Services;
+﻿using Microsoft.Extensions.DependencyInjection;
+
+namespace NavigatR.MVVM.Services;
 
 public sealed class ViewProvider
 {
@@ -6,18 +8,10 @@ public sealed class ViewProvider
 
     private Dictionary<Type, Type> _viewModelDictionary;
 
-    public ViewProvider(IViewFactory viewFactory)
+    public ViewProvider(ICollection<ServiceDescriptor> viewModels, IViewFactory viewFactory)
     {
         _viewFactory = viewFactory;
-        _viewModelDictionary = new Dictionary<Type, Type>();
-    }
-
-    internal void AddViewAndViewModelAssociation(Type view, Type viewModel)
-    {
-        if (!_viewModelDictionary.TryAdd(viewModel, view))
-        {
-            _viewModelDictionary[viewModel] = view;
-        }
+        _viewModelDictionary = viewModels.ToDictionary(viewModel => viewModel.ImplementationType!, view => view.ServiceType);
     }
 
     public TView GetViewFromViewModel<TView>(IViewModel viewModel) where TView : class
@@ -26,7 +20,7 @@ public sealed class ViewProvider
         if (!_viewModelDictionary.TryGetValue(viewModel.GetType(), out viewType!))
             throw new InvalidOperationException($"It was not found a View for the {viewModel.GetType().Name}. The View and View Model must be registered.");
 
-        if (viewType != typeof(TView))
+        if (!viewType.IsAssignableTo(typeof(TView)))
             throw new InvalidCastException($"The view is not a type of {typeof(TView).Name}.");
 
         return (TView)_viewFactory.CreateView(viewType);
