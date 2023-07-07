@@ -18,11 +18,7 @@ public class NavigatRConfiguration
             services.AddTransient(viewModelDescriptor.ImplementationType!);
         }
 
-        var navigatrServiceProvider = services.BuildServiceProvider();
-
-        services.AddSingleton(new ViewProvider(_viewModelDescriptors, new ViewFactory(navigatrServiceProvider)));
-
-        ViewModelLocator.CreateViewModelLocator(navigatrServiceProvider);
+        services.AddSingleton((serviceProvider) => new ViewProvider(_viewModelDescriptors, new ViewFactory(serviceProvider)));
 
         services.AddTransient<INavigator, Navigator>();
 

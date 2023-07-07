@@ -1,4 +1,5 @@
-﻿using NavigatR;
+﻿using DotPharma.WPF.MicrosoftDependencyInjection;
+using NavigatR;
 using NavigatR.MVVM;
 
 namespace Microsoft.Extensions.DependencyInjection;
@@ -12,6 +13,7 @@ public static class NavigatRExtensions
         navigatrConfiguration(configuration);
 
         configuration.ConfigureNavigatRLibrary(services);
+        services.AddHostedService<NavigatRService>();
         return services;
     }
 }
