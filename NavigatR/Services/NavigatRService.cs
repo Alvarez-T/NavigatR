@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Hosting;
 using NavigatR;
 
-namespace DotPharma.WPF.MicrosoftDependencyInjection;
+namespace NavigatR.Services;
 
 internal class NavigatRService : IHostedService
 {

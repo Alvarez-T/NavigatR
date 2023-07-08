@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using System.ComponentModel;
 
 namespace NavigatR;
 
@@ -16,6 +17,11 @@ public class ViewModelLocator
 
     public static TViewModel LocateViewModel<TViewModel>() where TViewModel : IViewModel
     {
+        if (LicenseManager.UsageMode == LicenseUsageMode.Designtime)
+        {
+            return default(TViewModel)!;
+        }
+
         if (_services is null)
             throw new NullReferenceException("The ViewModelLocator was not registered");
 

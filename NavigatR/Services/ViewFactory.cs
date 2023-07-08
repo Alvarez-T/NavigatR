@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 
-namespace NavigatR.MVVM.Services;
+namespace NavigatR.Services;
 
 internal sealed class ViewFactory : IViewFactory
 {

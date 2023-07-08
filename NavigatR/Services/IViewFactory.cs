@@ -1,4 +1,4 @@
-﻿namespace NavigatR.MVVM.Services;
+﻿namespace NavigatR.Services;
 
 public interface IViewFactory
 {

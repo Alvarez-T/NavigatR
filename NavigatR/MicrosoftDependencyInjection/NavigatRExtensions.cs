@@ -1,6 +1,6 @@
-﻿using DotPharma.WPF.MicrosoftDependencyInjection;
-using NavigatR;
+﻿using NavigatR;
 using NavigatR.MVVM;
+using NavigatR.Services;
 
 namespace Microsoft.Extensions.DependencyInjection;
 

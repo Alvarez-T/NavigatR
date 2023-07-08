@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using NavigatR.Wrappers;
 using System.Drawing;
 
 namespace NavigatR;

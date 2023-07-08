@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 
-namespace NavigatR.MVVM.Services;
+namespace NavigatR.Services;
 
 public sealed class ViewProvider
 {
@@ -26,4 +26,3 @@ public sealed class ViewProvider
         return (TView)_viewFactory.CreateView(viewType);
     }
 }
-

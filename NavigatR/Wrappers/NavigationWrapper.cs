@@ -1,4 +1,4 @@
-﻿namespace NavigatR;
+﻿namespace NavigatR.Wrappers;
 
 public class NavigationWrapper<T> : INavigationWrapper<T>
     where T : INavigable

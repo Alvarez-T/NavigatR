@@ -1,4 +1,4 @@
-﻿using NavigatR.WPF;
+﻿using NavigatR.WPF.Wrappers;
 
 namespace Microsoft.Extensions.DependencyInjection;
 

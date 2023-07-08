@@ -1,27 +1,27 @@
-﻿using NavigatR.MVVM;
-using NavigatR.MVVM.Services;
+﻿using NavigatR.Services;
 using System.Windows;
 
-namespace NavigatR.WPF;
-public class WpfNavigationWrapper<T> : INavigationWrapper<T>
+namespace NavigatR.Wrappers;
+public class WpfNavigationWrapper<T> : NavigationWrapper<T>
     where T : INavigable
 {
     private readonly ViewProvider _viewProvider;
 
-    public WpfNavigationWrapper(ViewProvider viewTypeProvider)
+    public WpfNavigationWrapper(IShellNavigation shellNavigation, ViewProvider viewTypeProvider) : base(shellNavigation)
     {
         _viewProvider = viewTypeProvider;
     }
 
-    public Task ExecuteNavigation(INavigable navigable)
+    public override Task ExecuteNavigation(INavigable navigable)
     {
         if (navigable is IViewModel viewModel)
         {
             var view = _viewProvider.GetViewFromViewModel<FrameworkElement>(viewModel);
             view.DataContext = viewModel;
+            ShowView(view);
         }
         else
-            navigable.Navigate();
+            base.ExecuteNavigation(navigable);
 
 
         return Task.CompletedTask;
