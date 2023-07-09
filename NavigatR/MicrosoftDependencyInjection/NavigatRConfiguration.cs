@@ -1,6 +1,5 @@
 ﻿using NavigatR;
-using NavigatR.MVVM;
-using NavigatR.MVVM.Services;
+using NavigatR.Services;
 using NavigatR.Wrappers;
 
 namespace Microsoft.Extensions.DependencyInjection;
@@ -33,7 +32,7 @@ public class NavigatRConfiguration
     public NavigatRConfiguration ConfigureNavigationWrapper(Type navigationWrapperType)
     {
         if (navigationWrapperType.IsAssignableFrom(typeof(INavigationWrapper<>)))
-            throw new ArgumentException("The argument must be of type INavigationWrapper");
+            throw new ArgumentException($"The argument must be of type {typeof(INavigationWrapper<>).Name}");
 
         if (!navigationWrapperType.IsGenericType)
             throw new ArgumentException("The navigation wrapper type must be generic");

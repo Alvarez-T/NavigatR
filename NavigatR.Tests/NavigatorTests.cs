@@ -1,5 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using NavigatR.WPF;
+using NavigatR;
 using System.Windows;
 
 namespace NavigatR.Tests;

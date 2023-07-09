@@ -1,5 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using NavigatR.MVVM;
+using NavigatR;
 
 namespace NavigatR.Tests;
 

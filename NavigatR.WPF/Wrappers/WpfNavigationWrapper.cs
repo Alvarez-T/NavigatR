@@ -7,7 +7,7 @@ public class WpfNavigationWrapper<T> : NavigationWrapper<T>
 {
     private readonly ViewProvider _viewProvider;
 
-    public WpfNavigationWrapper(IShellNavigation shellNavigation, ViewProvider viewTypeProvider) : base(shellNavigation)
+    public WpfNavigationWrapper(ViewProvider viewTypeProvider)
     {
         _viewProvider = viewTypeProvider;
     }

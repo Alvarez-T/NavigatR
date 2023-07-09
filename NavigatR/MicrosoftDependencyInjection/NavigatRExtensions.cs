@@ -1,6 +1,4 @@
-﻿using NavigatR;
-using NavigatR.MVVM;
-using NavigatR.Services;
+﻿using NavigatR.Services;
 
 namespace Microsoft.Extensions.DependencyInjection;
 
