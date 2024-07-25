@@ -1,24 +1,22 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using NavigatR.Wrappers;
-using System.Drawing;
-
-namespace NavigatR;
+﻿namespace NavigatR;
 
 public sealed class Navigator : INavigator
 {
     private readonly IServiceProvider _serviceProvider;
+
+    public INavigation NavPane { get; set; }
 
     public Navigator(IServiceProvider serviceProvider)
     {
         _serviceProvider = serviceProvider;
     }
 
-    public void NavigateFoward(int? index = null)
+    public void NavigateForward(int? index = null)
     {
         throw new NotImplementedException();
     }
 
-    public void NavigateFowardTo<T>() where T : INavigable
+    public void NavigateForwardTo<T>() where T : INavigable
     {
         throw new NotImplementedException();
     }
@@ -33,14 +31,12 @@ public sealed class Navigator : INavigator
         throw new NotImplementedException();
     }
 
-    public void NavigateTo<T>(object? parameter = null) where T : INavigable
+    public void NavigateTo(INavigable navigable)
     {
-        var wrapper = _serviceProvider.GetRequiredService<INavigationWrapper<T>>();
-        var navigable = (INavigable)Activator.CreateInstance(typeof(T))!;
-        wrapper.ExecuteNavigation(navigable);
+        throw new NotImplementedException();
     }
 
-    public void NavigateTo<T, TParam>(TParam parameter) where T : INavigable<TParam>
+    public void NavigateTo<T>(object? parameter = null) where T : INavigable
     {
         throw new NotImplementedException();
     }

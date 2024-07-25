@@ -1,17 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-	<TargetFramework>net9.0-windows7.0</TargetFramework>
+    <TargetFramework>net9.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-	<UseWPF>true</UseWPF>
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Services\**" />
-    <EmbeddedResource Remove="Services\**" />
-    <None Remove="Services\**" />
-    <Page Remove="Services\**" />
+    <PackageReference Include="Avalonia" Version="11.1.0" />
   </ItemGroup>
 
   <ItemGroup>
