@@ -36,26 +36,9 @@ public class NavigatRConfiguration
     private void ConfigureProviders()
     {
         _services.AddSingleton((serviceProvider) => new ViewViewModelProvider(_viewModelDescriptors, serviceProvider));
-        _services.AddSingleton<IViewProvider>(provider =>
-        {
-            IViewProvider viewProvider = provider.GetRequiredService<ViewViewModelProvider>();
-            if (_useViewLocator)
-                ViewLocator.CreateViewLocator(viewProvider);
-            return viewProvider;
-        });
-        _services.AddSingleton<IViewModelProvider>(provider =>
-        {
-            IViewModelProvider viewModelProvider = provider.GetRequiredService<ViewViewModelProvider>();
-            if (_useViewModelLocator)
-                ViewModelLocator.CreateViewModelLocator(viewModelProvider);
-            return viewModelProvider;
-        });
-        _services.AddSingleton<INavigatorProvider, NavigatorProvider>(provider =>
-        {
-            var navigatorProvider = provider.GetRequiredService<INavigatorProvider>();
-            NavigatorLocator.CreateNavigatorLocator(navigatorProvider);
-            return (NavigatorProvider)navigatorProvider;
-        });
+        _services.AddSingleton<IViewProvider>(provider => provider.GetRequiredService<ViewViewModelProvider>());
+        _services.AddSingleton<IViewModelProvider>(provider => provider.GetRequiredService<ViewViewModelProvider>());
+        _services.AddSingleton<INavigatorProvider, NavigatorProvider>();
     }
 
     public NavigatRConfiguration UseViewLocator(bool useIt = true)

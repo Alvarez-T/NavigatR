@@ -4,6 +4,73 @@ using Microsoft.CodeAnalysis.Text;
 
 namespace NavigatR.SourceGenerator;
 
+using System.Linq;
+using System.Text;
+using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CSharp;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Microsoft.CodeAnalysis.Text;
+
+[Generator]
+public class ViewBindGenerator : ISourceGenerator
+{
+    public void Initialize(GeneratorInitializationContext context) { }
+
+    public void Execute(GeneratorExecutionContext context)
+    {
+        // Get the compilation unit
+        var syntaxTrees = context.Compilation.SyntaxTrees;
+
+        foreach (var tree in syntaxTrees)
+        {
+            var semanticModel = context.Compilation.GetSemanticModel(tree);
+            var root = tree.GetRoot();
+
+            // Find all class declarations
+            var classDeclarations = root.DescendantNodes().OfType<ClassDeclarationSyntax>();
+
+            foreach (var classDeclaration in classDeclarations)
+            {
+                // Check if the class inherits from 'View'
+                var classSymbol = semanticModel.GetDeclaredSymbol(classDeclaration) as INamedTypeSymbol;
+                if (classSymbol == null) continue;
+
+                var baseType = classSymbol.BaseType;
+                while (baseType != null)
+                {
+                    if (baseType.ToDisplayString() == "NavigatR.Avalonia")
+                    {
+                        // Find the InitializeComponent method
+                        var methodDeclaration = classDeclaration.Members
+                            .OfType<MethodDeclarationSyntax>()
+                            .FirstOrDefault(m => m.Identifier.Text == "InitializeComponent");
+
+                        if (methodDeclaration != null)
+                        {
+                            // Create the additional statement to inject
+                            var additionalStatement = SyntaxFactory.ParseStatement("NavigatR.Avalonia.DataContextExtensions.BindViewModelToTopLevelControl(this);");
+                            
+
+                            // Inject the additional statement into the method body
+                            var newBody = methodDeclaration.Body.AddStatements(additionalStatement);
+
+                            var newMethodDeclaration = methodDeclaration.WithBody(newBody);
+                            var newClassDeclaration = classDeclaration.ReplaceNode(methodDeclaration, newMethodDeclaration);
+                            var newRoot = root.ReplaceNode(classDeclaration, newClassDeclaration);
+
+                            // Add the modified syntax tree to the compilation
+                            context.AddSource($"{classDeclaration.Identifier.Text}_Incremental.g.cs", SourceText.From(newRoot.NormalizeWhitespace().ToFullString(), Encoding.UTF8));
+                        }
+                        break;
+                    }
+                    baseType = baseType.BaseType;
+                }
+            }
+        }
+    }
+}
+
+/*
 [Generator]
 public class ViewModelGenerator : ISourceGenerator
 {
@@ -59,3 +126,4 @@ public class ViewModelGenerator : ISourceGenerator
 
 
 }
+*/

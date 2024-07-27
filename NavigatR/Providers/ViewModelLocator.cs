@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using System.ComponentModel;
+using NavigatR.Exceptions;
 
 namespace NavigatR.Providers;
 
@@ -7,10 +8,10 @@ public class ViewModelLocator
 {
     private static IViewModelProvider? _viewModelProvider;
 
-    internal static void CreateViewModelLocator(IViewModelProvider viewModelProvider)
+    internal static void CreateLocator(IViewModelProvider viewModelProvider)
     {
         if (_viewModelProvider is not null)
-            throw new InvalidOperationException("The ViewModelLocator is already registered");
+            throw new LocatorAlreadyRegisteredException(nameof(ViewModelLocator));
 
         _viewModelProvider = viewModelProvider;
     }
@@ -23,7 +24,7 @@ public class ViewModelLocator
         }
 
         if (_viewModelProvider is null)
-            throw new NullReferenceException("The ViewModelLocator was not registered");
+            throw new LocatorNotRegisteredException(nameof(ViewModelLocator));
 
         return _viewModelProvider.GetViewModel<TViewModel>();
     }
@@ -38,7 +39,7 @@ public class ViewModelLocator
         }
 
         if (_viewModelProvider is null)
-            throw new NullReferenceException("The ViewModelLocator was not registered");
+            throw new LocatorNotRegisteredException(nameof(ViewModelLocator));
 
         return _viewModelProvider.GetViewModelFromView<TViewModel>(typeof(TView));
     }
