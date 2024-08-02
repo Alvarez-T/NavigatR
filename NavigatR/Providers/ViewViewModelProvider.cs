@@ -36,6 +36,13 @@ internal sealed class ViewViewModelProvider : IViewProvider, IViewModelProvider
         return (TViewModel)_serviceProvider.GetRequiredService(viewModelType);
     }
 
+    public IViewModel GetViewModelFromView(Type view)
+    {
+        Type viewModelType = _map.TryGetViewModelTypeByView(view);
+
+        return (IViewModel)_serviceProvider.GetRequiredService(viewModelType);
+    }
+
     public TView GetView<TView>() where TView : class
         => _serviceProvider.GetRequiredService<TView>();
 

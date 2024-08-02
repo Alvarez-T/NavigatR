@@ -43,5 +43,15 @@ public class ViewModelLocator
 
         return _viewModelProvider.GetViewModelFromView<TViewModel>(typeof(TView));
     }
+
+    public static IViewModel LocateViewModelFromView(Type viewType)
+    {
+        if (_viewModelProvider is null)
+            throw new LocatorNotRegisteredException(nameof(ViewModelLocator));
+
+        return _viewModelProvider.GetViewModelFromView(viewType);
+    }
+
+
 }
 
