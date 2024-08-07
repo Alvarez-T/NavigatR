@@ -2,15 +2,15 @@
 
 namespace NavigatR.CommunityToolkit;
 
-public sealed record BroadcastMessage<T> where T : class
+public class BroadcastMessage<T> where T : class
 {
     public T Recipient { get; init; }
-    internal BroadcastMessage(T recipient)
+    protected internal BroadcastMessage(T recipient)
     {
         Recipient = recipient;
     }
 
-    public BroadcastMessage<T> On<TMessage>(MessageHandler<T, TMessage> messageHandler)
+    public BroadcastMessage<T> OnViewMessage<TMessage>(MessageHandler<T, TMessage> messageHandler)
         where TMessage : class
     {
         WeakReferenceMessenger.Default.Register(Recipient, messageHandler);
