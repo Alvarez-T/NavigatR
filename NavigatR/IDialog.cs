@@ -1,10 +1,5 @@
 ﻿namespace NavigatR;
 
-public interface INotification
-{
-    public void Notify
-}
-
 public interface IDialog
 {
     public void Show(object view);
