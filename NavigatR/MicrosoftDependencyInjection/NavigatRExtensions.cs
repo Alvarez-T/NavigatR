@@ -1,6 +1,5 @@
 ﻿using NavigatR.Exceptions;
 using NavigatR.Providers;
-using NavigatR.Services;
 
 namespace Microsoft.Extensions.DependencyInjection;
 

@@ -15,5 +15,5 @@ public class NavigatorProvider : INavigatorProvider
         => _serviceProvider.GetRequiredService<TNavigator>();
 
     public INavigator GetDefaultNavigator()
-        => _serviceProvider.GetRequiredService<Navigator>();
+        => _serviceProvider.GetRequiredService<INavigator>();
 }

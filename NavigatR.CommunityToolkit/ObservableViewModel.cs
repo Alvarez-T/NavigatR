@@ -27,8 +27,3 @@ public abstract class ObservableViewModel : ObservableObject, IViewModel
     }
     
 }
-
-public abstract class NavigableViewModel : ObservableViewModel, INavigableViewModel
-{
-    protected INavigator Navigator { get; }
-}

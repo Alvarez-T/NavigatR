@@ -26,7 +26,7 @@ public class NavigatRConfiguration
             _services.TryAddTransient(viewModelDescriptor.ImplementationType!);
         }
 
-        _services.AddTransient<INavigator, Navigator>();
+        _services.AddSingleton<INavigator, Navigator>();
 
         ConfigureProviders();
 
@@ -85,6 +85,14 @@ public class NavigatRConfiguration
         where TViewModel : class, IViewModel
     {
         RegisterViewToViewModel(typeof(TView), typeof(TViewModel), lifetime);
+        return this;
+    }
+
+    public NavigatRConfiguration RegisterUIService<TService, TImplementation>()
+        where TService : class
+        where TImplementation : class, TService
+    {
+        _services.AddSingleton<TService, TImplementation>();
         return this;
     }
 

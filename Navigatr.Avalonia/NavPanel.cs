@@ -11,6 +11,11 @@ namespace NavigatR.Avalonia
             AvaloniaProperty.Register<NavPane, INavigator>(nameof(Navigator),
                 defaultValue: NavigatorLocator.GetDefaultNavigator());
 
+        public NavPane()
+        {
+            Navigator = NavigatorLocator.GetDefaultNavigator();
+        }
+
         public INavigator Navigator
         {
             get => GetValue(NavigatorProperty);

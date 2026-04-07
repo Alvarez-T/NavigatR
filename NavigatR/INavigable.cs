@@ -1,10 +1,7 @@
 ﻿namespace NavigatR;
 
-public interface INavigable 
+public interface INavigable : IViewModel
 {
-    public Task<bool> CanNavigate()
-        => Task.FromResult(true);
-
-    public Task OnNavigation()
-        => Task.CompletedTask;
+    Task<bool> CanNavigate();
+    Task OnNavigation();
 }

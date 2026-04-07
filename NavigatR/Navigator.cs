@@ -1,14 +1,16 @@
-﻿namespace NavigatR;
+﻿using NavigatR.Providers;
+
+namespace NavigatR;
 
 public sealed class Navigator : INavigator
 {
-    private readonly IServiceProvider _serviceProvider;
+    private readonly IViewProvider _viewProvider;
 
-    public INavigation NavPane { get; set; }
+    public INavigation? NavPane { get; set; }
 
-    public Navigator(IServiceProvider serviceProvider)
+    public Navigator(IViewProvider viewProvider)
     {
-        _serviceProvider = serviceProvider;
+        _viewProvider = viewProvider;
     }
 
     public void NavigateForward(int? index = null)
@@ -16,7 +18,7 @@ public sealed class Navigator : INavigator
         throw new NotImplementedException();
     }
 
-    public void NavigateForwardTo<T>() where T : INavigable
+    public void NavigateForwardTo<T>() where T : class, INavigable
     {
         throw new NotImplementedException();
     }
@@ -26,19 +28,20 @@ public sealed class Navigator : INavigator
         throw new NotImplementedException();
     }
 
-    public void NavigateBackwardTo<T>() where T: INavigable
+    public void NavigateBackwardTo<T>() where T: class, INavigable
     {
         throw new NotImplementedException();
     }
 
     public void NavigateTo(INavigable navigable)
     {
-        throw new NotImplementedException();
+        NavPane?.PerformNavigation(navigable);
     }
 
-    public void NavigateTo<T>(object? parameter = null) where T : INavigable
+    public void NavigateTo<T>(object? parameter = null) where T : class, INavigable
     {
-        throw new NotImplementedException();
+        object view = _viewProvider.GetViewFromViewModel<T>();
+        NavPane?.PerformNavigation(view);
     }
 }
 

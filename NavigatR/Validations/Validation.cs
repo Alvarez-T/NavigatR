@@ -13,8 +13,9 @@ public class Validation<TValidator, T> : ValidationAttribute where TValidator : 
 
     protected override ValidationResult? IsValid(object? value, ValidationContext validationContext)
     {
-        var teste = (TValidation)validationContext.ObjectInstance;
-        ExecuteValidation(teste, otherInjectedHere);
+        //var teste = (TValidation)validationContext.ObjectInstance;
+        //ExecuteValidation(teste, otherInjectedHere);
+        throw new NotImplementedException();
     }
 
     [UnsafeAccessor(UnsafeAccessorKind.Method, Name = "Validate")]
